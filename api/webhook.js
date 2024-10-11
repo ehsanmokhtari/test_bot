@@ -36,8 +36,8 @@ process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
 
-module.exports = async (request, response) => {
-    console.log('Webhook received:', request.body);
-    response.send('OK');
+// Export the function for Vercel
+module.exports = async (req, res) => {
+    await bot.handleUpdate(req.body);
+    res.status(200).send('OK');
 };
-
