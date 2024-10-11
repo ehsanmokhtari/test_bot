@@ -38,4 +38,4 @@ bot.hears('hi', (ctx) => {
 
 bot
     .launch({ webhook: { domain: "https://test-bot-drab-two.vercel.app/", port: "3000" } })
-    .then(() => console.log("Webhook bot listening on port", port));
+    .then(() => console.log("Webhook bot listening on port", "3000"));
