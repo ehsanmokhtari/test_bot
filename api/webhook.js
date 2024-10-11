@@ -1,5 +1,5 @@
 // Require our Telegram helper package
-const Telegraf = require('telegraf');
+const { Telegraf } = require('telegraf');
 
 // Export as an asynchronous function
 // We'll wait until we've responded to the user
