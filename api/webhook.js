@@ -23,15 +23,19 @@ bot.hears('hi', (ctx) => {
     ctx.reply('Hey there');
 });
 
-bot.launch().catch(err => {
-    console.error('Failed to launch bot:', err);
-});
+// bot.launch().catch(err => {
+//     console.error('Failed to launch bot:', err);
+// });
 
-// Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+// // Enable graceful stop
+// process.once('SIGINT', () => bot.stop('SIGINT'));
+// process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
-module.exports = async (request, response) => {
-    console.log('Webhook received:', request.body);
-    response.send('OK');
-};
+// module.exports = async (request, response) => {
+//     console.log('Webhook received:', request.body);
+//     response.send('OK');
+// };
+
+bot
+    .launch({ webhook: { domain: "https://test-bot-drab-two.vercel.app/", port: "3000" } })
+    .then(() => console.log("Webhook bot listening on port", port));
