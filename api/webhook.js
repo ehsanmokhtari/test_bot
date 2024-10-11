@@ -26,12 +26,10 @@ bot.hears('hi', (ctx) => {
 bot
     .launch({
         webhook: {
-            domain: "https://test-bot-drab-two.vercel.app/",
-            port: process.env.PORT || 443,
-            path: "/api/webhook.js",
+            domain: "https://test-bot-drab-two.vercel.app/api/webhook"
         }
     })
-    .then(() => console.log("Webhook bot listening on port", "3000"));
+    .then(() => console.log("Webhook bot launch"));
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
