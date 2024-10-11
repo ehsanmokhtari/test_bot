@@ -1,5 +1,6 @@
 // Require our Telegram helper package
 const { Telegraf } = require('telegraf');
+const { message } = require('telegraf/filters')
 
 // Export as an asynchronous function
 // We'll wait until we've responded to the user
@@ -10,23 +11,15 @@ module.exports = async (request, response) => {
         // Use an environment variable so we don't expose it in our code
         const bot = new Telegraf(process.env.BOT_TOKEN);
 
-        // Retrieve the POST request body that gets sent from Telegram
-        const { body } = request;
+        bot.start((ctx) => ctx.reply('Welcome'))
+        bot.help((ctx) => ctx.reply('Send me a sticker'))
+        bot.on(message('sticker'), (ctx) => ctx.reply('👍'))
+        bot.hears('hi', (ctx) => ctx.reply('Hey there'))
+        bot.launch()
 
-        // Ensure that this is a message being sent
-        if (body.message) {
-            // Retrieve the ID for this chat
-            // and the text that the user sent
-            const { chat: { id }, text } = body.message;
-
-            // Create a message to send back
-            // We can use Markdown inside this
-            const message = `✅ Thanks for your message: *"${text}"*\nHave a great day! 👋🏻`;
-
-            // Send our new message back in Markdown and
-            // wait for the request to finish
-            await bot.on("text", ctx => ctx.reply(message));
-        }
+        // Enable graceful stop
+        process.once('SIGINT', () => bot.stop('SIGINT'))
+        process.once('SIGTERM', () => bot.stop('SIGTERM'))
     }
     catch (error) {
         // If there was an error sending our message then we 
