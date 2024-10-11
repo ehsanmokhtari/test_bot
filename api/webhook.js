@@ -26,7 +26,7 @@ bot.hears('hi', (ctx) => {
 bot
     .launch({
         webhook: {
-            domain: "https://test-bot-drab-two.vercel.app/api/webhook"
+            domain: "https://test-bot-drab-two.vercel.app"
         }
     })
     .then(() => console.log("Webhook bot launch"));
