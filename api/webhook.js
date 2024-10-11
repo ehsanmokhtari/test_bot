@@ -23,13 +23,13 @@ bot.hears('hi', (ctx) => {
     ctx.reply('Hey there');
 });
 
-bot
-    .launch({
-        webhook: {
-            domain: "https://test-bot-drab-two.vercel.app"
-        }
-    })
-    .then(() => console.log("Webhook bot launch"));
+// bot
+//     .launch({
+//         webhook: {
+//             domain: "https://test-bot-drab-two.vercel.app"
+//         }
+//     })
+//     .then(() => console.log("Webhook bot launch"));
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
