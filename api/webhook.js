@@ -1,25 +1,37 @@
 const { Telegraf } = require('telegraf');
-const { message } = require('telegraf/filters')
+const { message } = require('telegraf/filters');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('Welcome'))
-bot.help((ctx) => ctx.reply('Send me a sticker'))
-bot.on(message('sticker'), async (ctx) => {
-    console.log('Received a sticker');
-    try {
-        await ctx.reply('👍');
-    } catch (error) {
-        console.error('Error sending reply:', error);
-    }
+bot.start((ctx) => {
+    console.log('Bot started:', ctx.from);
+    ctx.reply('Welcome');
 });
-bot.hears('hi', (ctx) => ctx.reply('Hey there'))
-bot.launch()
+
+bot.help((ctx) => {
+    console.log('Help command received:', ctx.from);
+    ctx.reply('Send me a sticker');
+});
+
+bot.on(message('sticker'), (ctx) => {
+    console.log('Received a sticker from:', ctx.from);
+    ctx.reply('👍');
+});
+
+bot.hears('hi', (ctx) => {
+    console.log('Greeting received from:', ctx.from);
+    ctx.reply('Hey there');
+});
+
+bot.launch().catch(err => {
+    console.error('Failed to launch bot:', err);
+});
 
 // Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
 module.exports = async (request, response) => {
+    console.log('Webhook received:', request.body);
     response.send('OK');
 };
