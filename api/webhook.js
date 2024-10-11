@@ -31,3 +31,9 @@ bot
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
+
+module.exports = async (request, response) => {
+    console.log('Webhook received:', request.body);
+    response.send('OK');
+};
+
